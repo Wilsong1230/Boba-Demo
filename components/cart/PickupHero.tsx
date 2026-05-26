@@ -1,12 +1,15 @@
 // components/cart/PickupHero.tsx
 'use client';
 import { useCart } from '@/lib/store/CartContext';
-import { STORES, TIME_SLOTS } from '@/lib/data/drinks';
+import { STORES } from '@/lib/data/drinks';
+import { getTimeSlots, getReadyTime } from '@/lib/utils/time';
 import Chip from '@/components/ui/Chip';
 import Cup from '@/components/ui/Cup';
 
 export default function PickupHero() {
   const { pickupTime, pickupLocation, setPickupTime, setPickupLocation } = useCart();
+  const slots = getTimeSlots();
+  const readyTime = getReadyTime();
 
   return (
     <div className="rounded-2xl p-6 md:p-8 relative overflow-hidden"
@@ -29,16 +32,22 @@ export default function PickupHero() {
         <div className="text-right">
           <div className="text-[10px] font-medium tracking-widest uppercase text-[var(--coral-deep)] mb-1">Ready in</div>
           <div className="font-hand text-5xl md:text-6xl text-[var(--coral-deep)] leading-none">~6m</div>
-          <div className="text-xs text-[var(--ink-3)] mt-1">by 4:25 today</div>
+          <div className="text-xs text-[var(--ink-3)] mt-1">by {readyTime} today</div>
         </div>
       </div>
 
       <div className="relative border-t border-dashed border-[rgba(42,31,24,0.2)] mt-4 pt-4">
         <div className="flex gap-2 overflow-x-auto pb-1">
-          {TIME_SLOTS.map((t) => (
-            <Chip key={t} active={pickupTime === t} onClick={() => setPickupTime(t)}>
-              {t}
-            </Chip>
+          {slots.map((slot) => (
+            <div
+              key={slot.label}
+              className={`flex-shrink-0 text-center ${slot.disabled ? 'opacity-40 pointer-events-none' : ''}`}
+            >
+              <Chip active={pickupTime === slot.label} onClick={() => setPickupTime(slot.label)}>
+                {slot.label}
+              </Chip>
+              <div className="text-[10px] text-[var(--ink-3)] mt-1">{slot.clockTime}</div>
+            </div>
           ))}
         </div>
       </div>
