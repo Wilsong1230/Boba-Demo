@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Boba Bay
+
+A portfolio demo site for a fictional craft boba tea shop. Built to showcase frontend skills with smooth animations, responsive layout, and interactive UI patterns — no backend required.
+
+## Tech Stack
+
+- **Next.js 16** (App Router, TypeScript)
+- **Tailwind CSS v4** — `@theme {}` token system
+- **Framer Motion** — page transitions, staggered lists, layout animations
+- **React Context + useReducer** — cart, order builder, rewards state
+- **Vitest + React Testing Library** — unit tests for core logic
+- **Google Fonts** — Yeseva One, Plus Jakarta Sans, Caveat
+
+## Pages
+
+| Route | Description |
+|---|---|
+| `/` | Home — animated sticker-book hero with floating cups and marquee strip |
+| `/menu` | Menu — featured drink hero, category filter chips, staggered drink grid |
+| `/order` | Order — 4-step stepper (drink → size → customize → review) with live preview |
+| `/cart` | Cart — pickup-first layout with time slots, animated running total, confetti confirmation |
+| `/rewards` | Rewards — stamp card, Bean Bucks balance, activity feed with demo interactions |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+```
 
-## Learn More
+11 tests across price utilities, CartContext, and OrderContext.
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All data is static — no API calls, no database. Cart, order, and rewards state live in React Context and reset on page refresh. The site is intentionally a demo: interactions are mocked and the "Place Order" flow ends with a confetti animation.
