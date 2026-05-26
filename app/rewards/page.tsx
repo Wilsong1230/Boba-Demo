@@ -62,9 +62,8 @@ export default function RewardsPage() {
 
         {/* Activity feed */}
         <div className="bg-white rounded-2xl p-5" style={{ boxShadow: 'var(--sh-1)' }}>
-          <div className="flex justify-between items-center mb-2">
+          <div className="mb-2">
             <h4 className="font-display text-lg">Recent activity</h4>
-            <span className="text-xs text-[var(--ink-3)]">View all</span>
           </div>
           <div>
             {activity.slice(0, 5).map(item => (
