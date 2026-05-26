@@ -4,6 +4,7 @@ export interface TimeSlot {
   disabled: boolean;
 }
 
+const OPEN_HOUR = 9;   // 9am
 const CLOSE_HOUR = 21; // 9pm
 
 function addMinutes(date: Date, minutes: number): Date {
@@ -20,7 +21,8 @@ function fmt12(date: Date): string {
 }
 
 function isAfterClose(date: Date): boolean {
-  return date.getHours() >= CLOSE_HOUR;
+  const h = date.getHours();
+  return h >= CLOSE_HOUR || h < OPEN_HOUR;
 }
 
 const SLOT_OFFSETS = [

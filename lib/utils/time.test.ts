@@ -35,6 +35,12 @@ describe('getTimeSlots', () => {
     const slots = getTimeSlots(now);
     expect(slots[0].clockTime).toBe('12:01 pm');
   });
+
+  it('disables slots that cross midnight', () => {
+    const now = new Date('2024-01-15T23:30:00'); // 11:30pm
+    const slots = getTimeSlots(now);
+    expect(slots[4].disabled).toBe(true); // 1hr slot = 12:30am, store closed
+  });
 });
 
 describe('getReadyTime', () => {
