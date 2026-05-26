@@ -7,6 +7,7 @@ import type { Drink } from '@/lib/data/drinks';
 interface DrinkGridProps {
   drinks: Drink[];
   onQuickAdd: (drink: Drink) => void;
+  onSelect?: (drink: Drink) => void;
 }
 
 const containerVariants = {
@@ -18,7 +19,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
 
-export default function DrinkGrid({ drinks, onQuickAdd }: DrinkGridProps) {
+export default function DrinkGrid({ drinks, onQuickAdd, onSelect }: DrinkGridProps) {
   const reduced = useReducedMotion();
 
   return (
@@ -30,7 +31,7 @@ export default function DrinkGrid({ drinks, onQuickAdd }: DrinkGridProps) {
     >
       {drinks.map(drink => (
         <motion.div key={drink.id} variants={reduced ? {} : itemVariants}>
-          <DrinkCard drink={drink} onQuickAdd={onQuickAdd} />
+          <DrinkCard drink={drink} onQuickAdd={onQuickAdd} onSelect={onSelect} />
         </motion.div>
       ))}
     </motion.div>

@@ -1,9 +1,9 @@
 // app/menu/page.tsx
 'use client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { DRINKS, FEATURED_DRINK } from '@/lib/data/drinks';
-import type { DrinkCategory } from '@/lib/data/drinks';
-import { useCart } from '@/lib/store/CartContext';
+import type { DrinkCategory, Drink } from '@/lib/data/drinks';
 import FeaturedDrink from '@/components/menu/FeaturedDrink';
 import FilterChips from '@/components/menu/FilterChips';
 import DrinkGrid from '@/components/menu/DrinkGrid';
@@ -13,18 +13,14 @@ type FilterId = DrinkCategory | 'all';
 
 export default function MenuPage() {
   const [activeFilter, setActiveFilter] = useState<FilterId>('all');
-  const { addItem } = useCart();
+  const router = useRouter();
 
   const filtered = activeFilter === 'all'
     ? DRINKS
     : DRINKS.filter(d => d.category === activeFilter);
 
-  const handleQuickAdd = (drink: { id: string; name: string; color: any; price: number }) => {
-    addItem({
-      drinkId: drink.id, name: drink.name, color: drink.color,
-      size: 'M · 16oz', base: 'Oat Milk', toppings: ['pearls'],
-      sweetness: 50, ice: 'Regular Ice', qty: 1, price: drink.price + 0.50,
-    });
+  const handleSelectDrink = (drink: Drink) => {
+    router.push(`/order?drink=${drink.id}`);
   };
 
   return (
@@ -45,7 +41,11 @@ export default function MenuPage() {
         <FilterChips active={activeFilter} onChange={setActiveFilter} />
 
         <div className="mt-6">
-          <DrinkGrid drinks={filtered} onQuickAdd={handleQuickAdd} />
+          <DrinkGrid
+            drinks={filtered}
+            onQuickAdd={handleSelectDrink}
+            onSelect={handleSelectDrink}
+          />
         </div>
       </div>
     </div>
