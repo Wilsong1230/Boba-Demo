@@ -1,1 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Yeseva+One&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Caveat:wght@700&display=swap');
 @import "tailwindcss";
+
+@theme {
+  /* Brand colors */
+  --color-coral:       #FF8155;
+  --color-coral-soft:  #FFE0CF;
+  --color-coral-deep:  #E55F2B;
+  --color-mint:        #7BC8B0;
+  --color-mint-soft:   #D6ECE2;
+  --color-mint-deep:   #4DA68C;
+  --color-lav:         #B8A4E8;
+  --color-lav-soft:    #E5DCF7;
+  --color-lav-deep:    #8870C8;
+  --color-sun:         #FFD46B;
+  --color-sun-soft:    #FFEBB8;
+  --color-berry:       #E26277;
+  --color-berry-soft:  #F8D5DC;
+  --color-ink:         #2A1F18;
+  --color-ink-2:       #5C4E42;
+  --color-ink-3:       #8A7C6E;
+  --color-bg:          #FBF6EE;
+  --color-bg-2:        #F4EBDB;
+  --color-bg-3:        #ECDFC8;
+  --color-card:        #FFFFFF;
+
+  /* Font families */
+  --font-display: 'Yeseva One', Georgia, serif;
+  --font-body:    'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
+  --font-hand:    'Caveat', cursive;
+}
+
+:root {
+  --bg:          #FBF6EE;
+  --bg-2:        #F4EBDB;
+  --bg-3:        #ECDFC8;
+  --card:        #FFFFFF;
+  --ink:         #2A1F18;
+  --ink-2:       #5C4E42;
+  --ink-3:       #8A7C6E;
+  --ink-faint:   #B8AC9D;
+  --line:        rgba(42,31,24,0.10);
+  --line-2:      rgba(42,31,24,0.18);
+
+  --coral:       #FF8155;
+  --coral-soft:  #FFE0CF;
+  --coral-deep:  #E55F2B;
+  --mint:        #7BC8B0;
+  --mint-soft:   #D6ECE2;
+  --mint-deep:   #4DA68C;
+  --lav:         #B8A4E8;
+  --lav-soft:    #E5DCF7;
+  --lav-deep:    #8870C8;
+  --sun:         #FFD46B;
+  --sun-soft:    #FFEBB8;
+  --berry:       #E26277;
+  --berry-soft:  #F8D5DC;
+
+  --sh-1: 0 1px 2px rgba(42,31,24,.06), 0 2px 4px rgba(42,31,24,.04);
+  --sh-2: 0 2px 6px rgba(42,31,24,.06), 0 8px 24px rgba(42,31,24,.08);
+  --sh-3: 0 6px 14px rgba(42,31,24,.08), 0 18px 44px rgba(42,31,24,.14);
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 32px;
+
+  --display: 'Yeseva One', Georgia, serif;
+  --body:    'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
+  --hand:    'Caveat', cursive;
+}
+
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+p { margin: 0; color: var(--ink-2); }
+a { color: inherit; text-decoration: none; }
+
+/* Marquee animation */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 18s linear infinite; }
+
+/* Sticker styles */
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--sun);
+  color: var(--ink);
+  font: 700 12px/1 var(--body);
+  padding: 6px 12px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.sticker-mint  { background: var(--mint); }
+.sticker-lav   { background: var(--lav); }
+.sticker-coral { background: var(--coral); color: #fff; }
