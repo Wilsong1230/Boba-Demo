@@ -9,6 +9,7 @@ interface CupProps {
   size?: CupSize;
   className?: string;
   style?: React.CSSProperties;
+  toppings?: string[];
 }
 
 const sizes: Record<CupSize, { w: number; h: number }> = {
@@ -26,9 +27,34 @@ const bgVars: Record<CupColor, string> = {
   berry: 'var(--berry-soft)',
 };
 
-export default function Cup({ color = 'coral', size = 'md', className = '', style }: CupProps) {
+const TOPPING_DOT_COLOR: Record<string, string> = {
+  pearls:     'var(--ink)',
+  grass:      '#4a5c4a',
+  aloe:       'rgba(160,210,185,0.75)',
+  popping:    'var(--coral)',
+  'lychee-j': 'var(--lav)',
+  redbean:    '#7a2d2d',
+  pudding:    '#c8863a',
+  aiyu:       '#c9c060',
+};
+
+function getPearlColor(toppings: string[]): string {
+  const first = toppings.find(t => t in TOPPING_DOT_COLOR);
+  return first ? TOPPING_DOT_COLOR[first] : 'var(--ink)';
+}
+
+export default function Cup({ color = 'coral', size = 'md', className = '', style, toppings }: CupProps) {
   const { w, h } = sizes[size];
   const bg = bgVars[color];
+
+  // toppings undefined → classic look (dark pearls always shown, backward compat)
+  // toppings [] → no pearls shown
+  // toppings with entries → colored pearls (and optional foam for cream)
+  const showFoam  = toppings?.includes('cream') ?? false;
+  const hasDots   = toppings === undefined || (toppings.length > 0 && toppings.some(t => t !== 'cream'));
+  const dotColor  = toppings === undefined
+    ? 'var(--ink)'
+    : getPearlColor(toppings.filter(t => t !== 'cream'));
 
   return (
     <div className={className} style={{ position: 'relative', display: 'inline-block', width: w, height: h, flexShrink: 0, ...style }}>
@@ -47,23 +73,34 @@ export default function Cup({ color = 'coral', size = 'md', className = '', styl
         boxShadow: 'inset -8% 0 0 -4% rgba(0,0,0,0.06), inset 12% 0 0 -8% rgba(255,255,255,0.35)',
         overflow: 'hidden',
       }}>
+        {/* highlight */}
         <div style={{
           position: 'absolute', top: '6%', left: '8%', right: '8%', height: '8%',
           background: 'rgba(255,255,255,0.3)', borderRadius: '50%',
         }} />
-        {/* pearls */}
-        <div style={{
-          position: 'absolute', bottom: '4%', left: '8%', right: '8%', height: '32%',
-          borderRadius: '0 0 14px 14px',
-          backgroundImage: `
-            radial-gradient(circle at 18% 70%, var(--ink) 11%, transparent 12%),
-            radial-gradient(circle at 38% 88%, var(--ink) 11%, transparent 12%),
-            radial-gradient(circle at 58% 70%, var(--ink) 11%, transparent 12%),
-            radial-gradient(circle at 78% 88%, var(--ink) 11%, transparent 12%),
-            radial-gradient(circle at 28% 88%, var(--ink) 9%, transparent 10%),
-            radial-gradient(circle at 68% 88%, var(--ink) 9%, transparent 10%)
-          `,
-        }} />
+        {/* cream foam layer */}
+        {showFoam && (
+          <div style={{
+            position: 'absolute', top: '14%', left: 0, right: 0, height: '16%',
+            background: 'rgba(255,255,255,0.6)',
+            borderRadius: '0 0 50% 50%',
+          }} />
+        )}
+        {/* pearls / topping dots */}
+        {hasDots && (
+          <div style={{
+            position: 'absolute', bottom: '4%', left: '8%', right: '8%', height: '32%',
+            borderRadius: '0 0 14px 14px',
+            backgroundImage: `
+              radial-gradient(circle at 18% 70%, ${dotColor} 11%, transparent 12%),
+              radial-gradient(circle at 38% 88%, ${dotColor} 11%, transparent 12%),
+              radial-gradient(circle at 58% 70%, ${dotColor} 11%, transparent 12%),
+              radial-gradient(circle at 78% 88%, ${dotColor} 11%, transparent 12%),
+              radial-gradient(circle at 28% 88%, ${dotColor} 9%, transparent 10%),
+              radial-gradient(circle at 68% 88%, ${dotColor} 9%, transparent 10%)
+            `,
+          }} />
+        )}
       </div>
       {/* lid */}
       <div style={{
