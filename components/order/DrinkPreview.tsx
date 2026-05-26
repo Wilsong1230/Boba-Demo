@@ -7,18 +7,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function DrinkPreview() {
   const { current } = useOrder();
+  const cupKey = `${current.color}-${current.toppings.join(',')}`;
 
   return (
     <div className="hidden md:block bg-white rounded-2xl p-5 sticky top-24" style={{ boxShadow: 'var(--sh-2)' }}>
       <div className="text-[10px] font-medium tracking-widest uppercase text-[var(--ink-3)] mb-4">Your cup · live</div>
       <div className="flex justify-center mb-4">
         <AnimatePresence mode="wait">
-          <motion.div key={current.color}
+          <motion.div key={cupKey}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.25 }}>
-            <Cup color={(current.color || 'coral') as CupColor} size="lg" />
+            <Cup
+              color={(current.color || 'coral') as CupColor}
+              size="lg"
+              toppings={current.toppings.length > 0 ? current.toppings : undefined}
+            />
           </motion.div>
         </AnimatePresence>
       </div>
