@@ -7,12 +7,14 @@ import DriftCup from '@/components/home/DriftCup';
 import StickerLabel from '@/components/home/StickerLabel';
 import Button from '@/components/ui/Button';
 import Chip from '@/components/ui/Chip';
+import PageTransition from '@/components/PageTransition';
 
 export default function Home() {
   const reduced = useReducedMotion();
 
   return (
-    <div>
+    <PageTransition>
+      <div>
       <MarqueeStrip />
       <div className="relative min-h-[560px] flex items-center justify-center overflow-hidden px-6 py-16">
         {/* Background gradient blob */}
@@ -81,6 +83,7 @@ export default function Home() {
           </span>
         ))}
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

@@ -7,12 +7,14 @@ import ActivityRow from '@/components/ui/ActivityRow';
 import Button from '@/components/ui/Button';
 import { motion, useReducedMotion } from 'framer-motion';
 import Cup from '@/components/ui/Cup';
+import PageTransition from '@/components/PageTransition';
 
 export default function RewardsPage() {
   const { stamps, stampGoal, beanBucks, bucksGoal, activity, addStamp, spendBucks } = useRewards();
   const reduced = useReducedMotion();
 
   return (
+    <PageTransition>
     <div className="max-w-5xl mx-auto px-4 md:px-10 py-8">
       {/* Hero numbers — desktop: side by side; mobile: stacked */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -91,5 +93,6 @@ export default function RewardsPage() {
         </div>
       </div>
     </div>
+    </PageTransition>
   );
 }

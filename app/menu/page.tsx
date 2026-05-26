@@ -7,6 +7,7 @@ import { useCart } from '@/lib/store/CartContext';
 import FeaturedDrink from '@/components/menu/FeaturedDrink';
 import FilterChips from '@/components/menu/FilterChips';
 import DrinkGrid from '@/components/menu/DrinkGrid';
+import PageTransition from '@/components/PageTransition';
 
 type FilterId = DrinkCategory | 'all';
 
@@ -27,6 +28,7 @@ export default function MenuPage() {
   };
 
   return (
+    <PageTransition>
     <div className="max-w-6xl mx-auto px-4 md:px-10 py-8">
       <FeaturedDrink drink={FEATURED_DRINK} />
 
@@ -47,5 +49,6 @@ export default function MenuPage() {
         </div>
       </div>
     </div>
+    </PageTransition>
   );
 }
