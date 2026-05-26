@@ -61,4 +61,3 @@ export const SIZES = [
   { label: 'L · 24oz', delta: 1.00 },
 ];
 export const STORES = ['Mission Street', 'Hayes Valley', 'Inner Sunset'];
-export const TIME_SLOTS = ['ASAP', '15 min', '30 min', '45 min', '1 hour'];

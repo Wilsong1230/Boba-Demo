@@ -15,13 +15,14 @@ import PageTransition from '@/components/PageTransition';
 
 function OrderBootstrap() {
   const searchParams = useSearchParams();
-  const { updateCurrent, setStep } = useOrder();
+  const { updateCurrent, setStep, resetOrder } = useOrder();
 
   useEffect(() => {
     const id = searchParams.get('drink');
     if (!id) return;
     const drink = DRINKS.find(d => d.id === id);
     if (!drink) return;
+    resetOrder();
     updateCurrent({ drinkId: drink.id, drinkName: drink.name, color: drink.color, basePrice: drink.price });
     setStep(1);
   // eslint-disable-next-line react-hooks/exhaustive-deps
